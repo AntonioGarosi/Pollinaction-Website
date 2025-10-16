@@ -1,24 +1,43 @@
+---
+import montserrat from '../assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf';
+
+const fontFace = `@font-face {
+  font-family: 'Montserrat';
+  src: url("${montserrat}") format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  font-feature-settings: "ss01" on;
+}`;
+
+// costruisco qui la stringa completa (nessun backtick nella parte template)
+const fontStyle = `<style>${fontFace}</style>`;
+---
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>PollinAction</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <title>PollinAction</title>
+
+    <!-- Preload font per miglior LCP -->
+    <link rel="preload" href={montserrat} as="font" type="font/ttf" crossorigin />
+
+    <!-- iniezione sicura del CSS del font -->
+    <style>{fontFace}</style>
+
+    <!-- CSS statico semplice (PostCSS può processarlo) -->
+    <style>
+      html, body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <slot />
+  </body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-
-		background-color: rgb(100, 31, 101);
-	}
-</style>
