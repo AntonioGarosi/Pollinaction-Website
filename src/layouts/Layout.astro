@@ -10,8 +10,6 @@ const fontFace = `@font-face {
   font-feature-settings: "ss01" on;
 }`;
 
-// costruisco qui la stringa completa (nessun backtick nella parte template)
-const fontStyle = `<style>${fontFace}</style>`;
 ---
 <!doctype html>
 <html lang="it">
@@ -24,9 +22,6 @@ const fontStyle = `<style>${fontFace}</style>`;
 
     <!-- Preload font per miglior LCP -->
     <link rel="preload" href={montserrat} as="font" type="font/ttf" crossorigin />
-
-    <!-- iniezione sicura del CSS del font -->
-    <style>{fontFace}</style>
 
     <!-- CSS statico semplice (PostCSS può processarlo) -->
     <style>
