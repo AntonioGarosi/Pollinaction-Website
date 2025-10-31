@@ -13,19 +13,20 @@ import background from '../assets/images/background.png';
         <section id="welcome">			
             <a href="https://www.pollinaction.com" aria-label="Vai alla homepage di PollinAction">
                 <img src={logo.src} width="300" alt="PollinAction Homepage" decoding="async" />
-            </a>
-            <section id="links">
+            </a>            
+        <section id="bugs" aria-hidden="true">
+            <img class="bug" src={bombo.src} width="100" height="100" alt="Bombo" loading="lazy" decoding="async" />
+            <img class="bug" src={libellula.src} width="100" height="100" alt="Libellula" loading="lazy" decoding="async" />
+            <img class="bug" src={coccinella.src} width="100" height="100" alt="Coccinella" loading="lazy" decoding="async" />
+            
+        </section>
+                <section id="links">
                 <a class="shaded social-link" href="https://instagram.com/pollinaction_" target="_blank" rel="noopener noreferrer">
                     <img src={instagramIcon.src} width="24" height="24" alt="Instagram" decoding="async" />
                     <span>pollinaction_</span>
                 </a>
                 <a class="shaded" href="mailto:team@pollinaction.com">team@pollinaction.com</a>
             </section>
-        </section>
-        <section id="bugs" aria-hidden="true">
-            <img class="bug" src={bombo.src} width="100" height="100" alt="Bombo" loading="lazy" decoding="async" />
-            <img class="bug" src={libellula.src} width="100" height="100" alt="Libellula" loading="lazy" decoding="async" />
-            <img class="bug" src={coccinella.src} width="100" height="100" alt="Coccinella" loading="lazy" decoding="async" />
         </section>
     </main>
 </div>
@@ -56,17 +57,15 @@ import background from '../assets/images/background.png';
         display: flex;
         flex-direction: column;
         gap: 2rem;
-        font-style: italic;
     }
     #links a {
-        text-decoration: underline;
-        font-weight: bold;
+        text-decoration: none;
         transition: color 0.3s ease;
         font-size: 1.5rem;
     }
 
     #bugs {			
-        bottom: 20px;
+        margin-top: 60px;
         display: flex;
         background-color: rgb(223, 221, 207);
         border-radius: 50vh;
