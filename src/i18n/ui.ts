@@ -17,10 +17,10 @@ export const ui = {
     'bi.id3.description': 'Condividiamo la nostra passione per il mondo degli insetti attraverso percorsi didattici per le scuole ed eventi di divulgazione, per farne capire l\'importanza e la ricchezza.',
     'cta.claim': '',
     'cta.button': '',
-    'footer.address': 'Via Don Eusebio Chini, 2/3 - 38123 Trento (TN) - Italia',
-    'footer.cf': 'CF: 02761000229',
-    'footer.vat': 'P.IVA: 02761000229',
+    'footer.address': 'Via Chini, 2/3 - 38123 Trento (TN) Italia',
+    'footer.vat': 'PI: 02761000229',
     'footer.grant': 'Progetto cofinanziato dai fondi europei della Provincia autonoma di Trento',
+    'footer.grant_label': 'Politica di coesione 2021-2027, Unione Europea, Repubblica Italiana, Provincia autonoma di Trento',
   },
   en: {
     'intro.title': 'the project',

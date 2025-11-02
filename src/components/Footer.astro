@@ -1,0 +1,102 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+import logo from '../assets/images/logo.svg?url';
+import grant from '../assets/images/grant.png?url';
+---
+
+<footer>
+  <div class="container">
+    <div class="row" id="info">
+      <img class="logo" src={logo} alt="PollinAction Logo" />
+      <div>
+        <p>{t('footer.address')}</p>
+        <p>{t('footer.vat')}</p>    
+      </div>
+    </div>
+    <div class="row" id="grant">
+      <p>{t('footer.grant')}</p>
+      <img src={grant} alt="{t('foonter.grant_label')}"/>
+    </div>
+  </div>
+</footer>
+
+<style lang="scss">
+  @use '../assets/style/main' as vars;
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+    padding: 5px;    
+  }
+  
+  .row {     
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    justify-content: center;          
+  }
+  
+  #info {
+    padding: 10px 30px;
+    border-bottom: 0.5px solid rgb(206, 206, 206);
+    
+    p {
+      margin: 6px 0;
+      line-height: normal;
+    }
+  }
+  
+  .logo {
+    max-width: 33%;
+    max-height: 100px;
+    margin: 0 20px;
+  }
+  
+  #grant {
+    flex-direction: column;
+    gap: 5px;    
+    p {
+      text-align: center;
+      font-size: vars.$font_size-smaller;
+      max-width: 80%;
+    }
+    img {
+      width: 100%;
+      max-height: 80px;
+    }
+    
+  }
+  
+  p {
+    color: rgb(112, 111, 111);
+    font-size: vars.$font_size-small;
+  }
+  
+  @media screen and (min-width:vars.$bp_medium) {
+    .container {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-evenly;
+    }
+
+    #info {
+      
+      border-bottom: none;
+      border-right: 0.5px solid rgb(206, 206, 206);
+      padding-right: 50px;
+      margin-right: 50px;
+    }
+    
+    #grant {
+      flex-direction: column;      
+    }
+  }
+  
+</style>
