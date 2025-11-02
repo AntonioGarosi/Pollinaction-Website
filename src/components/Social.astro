@@ -1,0 +1,49 @@
+---
+import ig from '../assets/images/social/instagram.svg?url';
+var igUrl = 'https://www.instagram.com/pollinaction_';
+
+import envelope from '../assets/images/social/envelope.svg?url';
+var mailUrl = 'mailto:team@pollinaction.com';
+---
+
+<div id="social-box">
+  <a class="social-icon" href={mailUrl} target="_blank" rel="noopener noreferrer">
+    <img src={envelope} alt="Email Icon" />
+  </a>
+  <a class="social-icon" href={igUrl} target="_blank" rel="noopener noreferrer">
+    <img src={ig} alt="Instagram Icon" />
+  </a>
+</div>
+
+<style lang="scss">
+  @use '../assets/style/main.scss' as vars;
+  
+  #social-box {    
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 50px;
+    border: 1px solid vars.$color-purple;
+    border-right: none;
+    border-radius: 40px 0 0 40px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 20px 0 20px 5px;
+  }
+
+  .social-icon {
+    width: 26px;
+    height: 26px;
+    padding: 6px;
+    border-radius: 100%;
+    background-color: vars.$color-purple;    
+    img {
+      width: 100%;
+      height: 100%;
+      filter: invert(1);
+    }
+  }
