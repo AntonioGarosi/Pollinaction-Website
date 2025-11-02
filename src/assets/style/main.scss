@@ -1,0 +1,83 @@
+// Color palette
+$color-purple: #6d2471;
+$color-azure:  #25b4b0;
+$color-green:  #98aa22;
+$color-yellow: #e2af10;
+$color-orange: #d3471b;
+
+// Typography
+@font-face {
+  font-family: 'Montserrat';
+  src: local('Montserrat Regular'), local('Montserrat-Regular'),
+       url('../fonts/Montserrat/Montserrat-VariableFont_wght.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+$font-montserrat: 'Montserrat', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$fw-extrabold: 800;
+$fw-bold: 700;
+
+$font_size-base: 100%; // 16px
+$font_size-bigger: 2.3125rem; /* 37px / 16 = 2.3125rem */
+$font_size-big: 2.0625rem; /* 33px / 16 = 2.0625rem */
+$font_size-medium: 1.125rem; /* 18px / 16 = 1.125rem */
+
+// Breakpoints
+$bp-medium: 768px;
+$bp-large: 1200px;
+
+// Utility / base
+html {
+  box-sizing: border-box;
+  font-size: 100%;
+}
+*, *::before, *::after { box-sizing: inherit; }
+
+body {
+  font-family: $font-montserrat;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Small viewports (mobile-first default) */
+h2 {
+  font-family: $font-montserrat;
+  font-weight: $fw-extrabold;
+  font-size: $font_size-bigger;
+  line-height: 1.15;
+}
+
+h3 {
+  font-family: $font-montserrat;
+  font-weight: $fw-extrabold;
+  font-size: $font_size-big;
+  line-height: 1.2;
+}
+
+p {
+  font-family: $font-montserrat;
+  font-weight: $fw-bold;
+  font-size: $font_size-medium;
+  line-height: 1.6;
+}
+
+.container {
+  margin: 30px 50px;
+  width: auto;
+}
+
+/* Medium and up */
+@media (min-width: $bp-medium) {
+  $font_size-bigger: 2.6875rem; /* 43px / 16 = 2.6875rem */
+
+  h2 {
+    font-size: $font_size-bigger;
+  }
+
+  .container {
+    margin: 65px;
+  }
+}
