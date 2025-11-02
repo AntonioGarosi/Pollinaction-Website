@@ -1,0 +1,29 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<div class="container">
+  <h2>{t('intro.title')}</h2>
+  <p>{t('intro.description')}</p>
+</div>
+
+<style lang="scss">
+  @use '../assets/style/main' as vars;
+  .container {
+    padding-top: 60px;
+    text-align: center;
+    color: vars.$color-purple;
+  }
+  p {
+    line-height: 125%;
+  }
+
+  @media screen and (min-width: vars.$bp-medium) {
+    .container {
+      padding-top: 65px;
+    }
+  }
+</style>

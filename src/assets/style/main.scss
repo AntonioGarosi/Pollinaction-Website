@@ -10,7 +10,7 @@ $color-orange: #d3471b;
   font-family: 'Montserrat';
   src: local('Montserrat Regular'), local('Montserrat-Regular'),
        url('../assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf') format('truetype');
-  font-weight: 400;
+  font-weight: 400, 700, 800;
   font-style: normal;
   font-display: swap;
 }
