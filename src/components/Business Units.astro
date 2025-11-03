@@ -17,24 +17,30 @@ import arrow from '../assets/images/arrow.svg?url';
       <div class="icon">
         <img src={unit1} />
       </div>
-      <h3>{t('bu.u1.title')}</h3>
-      <p>{t('bu.u1.description')}</p>
+      <div class="text">
+        <h3>{t('bu.u1.title')}</h3>
+        <p>{t('bu.u1.description')}</p>
+      </div>
     </div>
 
     <div class="unit" id="u2" role="listitem">
       <div class="icon">
         <img src={unit2} />
       </div>
-      <h3>{t('bu.u2.title')}</h3>
-      <p>{t('bu.u2.description')}</p>
+      <div class="text">
+        <h3>{t('bu.u2.title')}</h3>
+        <p>{t('bu.u2.description')}</p>
+      </div>
     </div>
 
     <div class="unit" id="u3" role="listitem">
       <div class="icon">
         <img src={unit3} />
       </div>
-      <h3>{t('bu.u3.title')}</h3>
-      <p>{t('bu.u3.description')}</p>
+      <div class="text">
+        <h3>{t('bu.u3.title')}</h3>
+        <p>{t('bu.u3.description')}</p>
+      </div>
     </div>
   </div>
 
@@ -46,13 +52,13 @@ import arrow from '../assets/images/arrow.svg?url';
 <style lang="scss">
   @use '../assets/style/main.scss' as vars;
 
-  // parametri modificabili
+  // parametri per gestire comportamento deck
   $deck-width: 100%;
   $deck-height: 520px;
-  $stack-gap: 48px;    // distanza orizzontale fra livelli
+  $stack-gap: 48px;
   $scale-step: 0.04;
   $opacity-step: 0.14;
-  $units-visible: 3; // usato solo per logica visuale
+  $units-visible: 3;
 
   .container {
     position: relative;
@@ -67,7 +73,9 @@ import arrow from '../assets/images/arrow.svg?url';
   .deck {
     position: relative;
     width: $deck-width;
-    height: $deck-height;    
+    height: $deck-height;
+    /* flag letta da JS per capire se siamo in modalità stacked */
+    --stack-mode: 0;
   }
 
   .unit {
@@ -141,7 +149,7 @@ import arrow from '../assets/images/arrow.svg?url';
     width: 40px;
     height: auto;
     transform: scaleY(1.8);
-    filter: invert(1);    
+    filter: invert(1);
   }
 
   /* solo la card front riceve eventi */
@@ -149,6 +157,92 @@ import arrow from '../assets/images/arrow.svg?url';
     pointer-events: auto;
     .icon, h3, p {
       opacity: 1;
+    }
+  }
+
+  /* ---------- Cambiamento: stacked quando la viewport è >= bp-medium ---------- */
+  @media screen and (min-width: vars.$bp-medium) {
+    /* in modalità "over small" nascondi freccia (se vuoi conservarla rimuovi questa riga) */
+    #arrow {
+      display: none;
+    }
+
+    .container {
+      height: unset;
+      width: 100%;
+      padding: 0px;
+    }
+
+    .deck {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      /* attiva la modalità stacked per JS */
+      --stack-mode: 1;
+      height: unset;
+    }
+
+    .unit {
+      width: 100%;
+      height: 270px;
+      position: relative;
+      pointer-events: auto;
+      left: 0%;
+      top: 0%;
+      transform: translate(0, 0);
+      border-radius: 0;
+      transition: none;
+      p, h3, .icon {
+        opacity: 1;
+      }
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      padding: 0;
+    }
+
+    #u2 {
+      flex-direction: row-reverse;
+      .icon img {
+        transform: translateX(-5%);
+      }
+    }
+
+    .icon {
+      align-self: center;
+      position: relative;
+      height: 200px;
+      width: 200px;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 0 0 200px;
+      min-width: 200px;
+      min-height: 200px;
+      overflow: hidden;
+      border-radius: 100%;
+      background-color: vars.$color-gray;
+      justify-content: space-around;
+
+      img {
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: translate(0, 0);
+        width: 70%;
+        height: 70%;
+        object-fit: contain;
+      }
+    }
+
+    .text {
+      padding-top: 60px;
+      max-width: 70%;
+    }
+
+    h3 {
+      margin: 0px 0 20px 0;
     }
   }
 
@@ -166,24 +260,43 @@ import arrow from '../assets/images/arrow.svg?url';
     if (n === 0 || !btn) return;
 
     const GAP = 48; // deve rimanere coerente con $stack-gap
-    const SCALE_STEP = 0.04;
     const OPACITY_STEP = 0.14;
 
     let current = 0; // indice della card in primo piano
 
-    function render() {
-      units.forEach((el, i) => {
-        // distanza ciclica rispetto alla card front (0..n-1)
-        const rel = (i - current + n) % n;
-        // valori visuali (più grande rel => più a destra, più piccolo e meno visibile)
-        const translateX = rel * GAP;        
-        const opacity = Math.max(0, 1 - rel * OPACITY_STEP);
+    // now detect stack mode reading the CSS custom property
+    function isStackMode() {
+      const val = getComputedStyle(deck).getPropertyValue('--stack-mode').trim();
+      return val === '1';
+    }
 
+    function clearInlineStyles() {
+      units.forEach(el => {
+        el.style.transform = '';
+        el.style.opacity = '';
+        el.style.zIndex = '';
+        el.classList.remove('front');
+      });
+    }
+
+    function render() {
+      // se siamo in modalità responsive (stack sul CSS), non sovrascriviamo il layout
+      if (isStackMode()) {
+        clearInlineStyles();
+        console.debug('[BU] render: stack-mode ON — cleared inline styles');
+        return;
+      }
+      console.debug('[BU] render: stack-mode OFF — applying transforms, current=', current);
+
+      units.forEach((el, i) => {
+        const rel = (i - current + n) % n;
+        const translateX = rel * GAP;
+        const opacity = Math.max(0, 1 - rel * OPACITY_STEP);
         el.style.zIndex = String(n - rel);
-        el.style.transform = `translate(-50%, -50%) translateX(${translateX}px)`;        
+        el.style.transform = `translate(-50%, -50%) translateX(${translateX}px)`;
         el.style.opacity = String(opacity);
         if (rel === 0) {
-          el.classList.add('front');          
+          el.classList.add('front');
         } else {
           el.classList.remove('front');
         }
@@ -201,5 +314,9 @@ import arrow from '../assets/images/arrow.svg?url';
     // Eventi
     btn.addEventListener('click', next);
     btn.addEventListener('touchstart', (e) => { e.preventDefault(); next(); }, { passive: false });
+
+    // aggiorna su resize/orientation (quando cambia breakpoint)
+    window.addEventListener('resize', render);
+    window.addEventListener('orientationchange', render);
   });
 </script>
