@@ -1,0 +1,6 @@
+# Allow all user agents to crawl the entire site.
+User-agent: *
+Allow: /
+
+# Provide a link to your sitemap (once you create it).
+Sitemap: https://www.pollinaction.com/sitemap-index.xml
