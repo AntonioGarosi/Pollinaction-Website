@@ -22,7 +22,7 @@ import arrow from '../assets/images/arrow.svg?url';
         <p>{t('bu.u1.description')}</p>
       </div>
     </div>
-
+    
     <div class="unit" id="u2" role="listitem">
       <div class="icon">
         <img src={unit2} />
@@ -32,7 +32,7 @@ import arrow from '../assets/images/arrow.svg?url';
         <p>{t('bu.u2.description')}</p>
       </div>
     </div>
-
+    
     <div class="unit" id="u3" role="listitem">
       <div class="icon">
         <img src={unit3} />
@@ -43,7 +43,7 @@ import arrow from '../assets/images/arrow.svg?url';
       </div>
     </div>
   </div>
-
+  
   <button id="arrow" aria-label="Prossima unit" class="arrow-btn">
     <img src={arrow} alt="" />
   </button>
@@ -51,7 +51,7 @@ import arrow from '../assets/images/arrow.svg?url';
 
 <style lang="scss">
   @use '../assets/style/main.scss' as vars;
-
+  
   // parametri per gestire comportamento deck
   $deck-width: 100%;
   $deck-height: 520px;
@@ -59,7 +59,7 @@ import arrow from '../assets/images/arrow.svg?url';
   $scale-step: 0.04;
   $opacity-step: 0.14;
   $units-visible: 3;
-
+  
   .container {
     position: relative;
     padding: 0;
@@ -69,15 +69,15 @@ import arrow from '../assets/images/arrow.svg?url';
     width: 100%;
     height: $deck-height;
   }
-
+  
   .deck {
     position: relative;
-    width: $deck-width;
+    width: min($deck-width, vars.$bp-medium);
     height: $deck-height;
     /* flag letta da JS per capire se siamo in modalità stacked */
     --stack-mode: 0;
   }
-
+  
   .unit {
     position: absolute;
     left: 40%;
@@ -89,21 +89,21 @@ import arrow from '../assets/images/arrow.svg?url';
     flex-direction: column;
     color: white;
     padding: 0 40px;
-
+    
     transition: transform 360ms cubic-bezier(.2,.9,.2,1), opacity 360ms ease;
     transform-origin: center center;
     pointer-events: none;
     border-radius: 6px;
-
+    
     p, h3 {
       opacity: 0;
     }
   }
-
+  
   #u1 { background-color: vars.$color-green; }
   #u2 { background-color: vars.$color-yellow; }
   #u3 { background-color: vars.$color-orange; }
-
+  
   .icon {
     width: 130px;
     height: 130px;
@@ -112,7 +112,7 @@ import arrow from '../assets/images/arrow.svg?url';
     position: absolute;
     top: -20px;
     opacity: 0;
-
+    
     img {
       position: absolute;
       width: 80%;
@@ -122,17 +122,17 @@ import arrow from '../assets/images/arrow.svg?url';
       transform: translate(-50%, -50%);
     }
   }
-
+  
   h3 {
     margin-top: 130px;
     margin-bottom: 20px;
   }
-
+  
   p {
     margin: 0;
     line-height: 1.25;
   }
-
+  
   .arrow-btn {
     position: absolute;
     right: 12px;
@@ -144,14 +144,14 @@ import arrow from '../assets/images/arrow.svg?url';
     cursor: pointer;
     z-index: 999;
   }
-
+  
   .arrow-btn img {
     width: 40px;
     height: auto;
     transform: scaleY(1.8);
     filter: invert(1);
   }
-
+  
   /* solo la card front riceve eventi */
   .unit.front {
     pointer-events: auto;
@@ -159,20 +159,20 @@ import arrow from '../assets/images/arrow.svg?url';
       opacity: 1;
     }
   }
-
+  
   /* ---------- Cambiamento: stacked quando la viewport è >= bp-medium ---------- */
   @media screen and (min-width: vars.$bp-medium) {
     /* in modalità "over small" nascondi freccia (se vuoi conservarla rimuovi questa riga) */
     #arrow {
       display: none;
     }
-
+    
     .container {
       height: unset;
       width: 100%;
       padding: 0px;
     }
-
+    
     .deck {
       width: 100%;
       display: flex;
@@ -181,7 +181,7 @@ import arrow from '../assets/images/arrow.svg?url';
       --stack-mode: 1;
       height: unset;
     }
-
+    
     .unit {
       width: 100%;
       height: 270px;
@@ -200,14 +200,14 @@ import arrow from '../assets/images/arrow.svg?url';
       justify-content: space-around;
       padding: 0;
     }
-
+    
     #u2 {
       flex-direction: row-reverse;
       .icon img {
         transform: translateX(-5%);
       }
     }
-
+    
     .icon {
       align-self: center;
       position: relative;
@@ -224,7 +224,7 @@ import arrow from '../assets/images/arrow.svg?url';
       border-radius: 100%;
       background-color: vars.$color-gray;
       justify-content: space-around;
-
+      
       img {
         position: relative;
         top: 0;
@@ -235,41 +235,41 @@ import arrow from '../assets/images/arrow.svg?url';
         object-fit: contain;
       }
     }
-
+    
     .text {
       padding-top: 60px;
       max-width: 70%;
     }
-
+    
     h3 {
       margin: 0px 0 20px 0;
     }
   }
-
+  
 </style>
 
 <script type="module">
   document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('#business-units');
     if (!container) return;
-
+    
     const deck = container.querySelector('.deck');
     const units = Array.from(deck.querySelectorAll('.unit'));
     const btn = container.querySelector('#arrow');
     const n = units.length;
     if (n === 0 || !btn) return;
-
+    
     const GAP = 48; // deve rimanere coerente con $stack-gap
     const OPACITY_STEP = 0.14;
-
+    
     let current = 0; // indice della card in primo piano
-
+    
     // now detect stack mode reading the CSS custom property
     function isStackMode() {
       const val = getComputedStyle(deck).getPropertyValue('--stack-mode').trim();
       return val === '1';
     }
-
+    
     function clearInlineStyles() {
       units.forEach(el => {
         el.style.transform = '';
@@ -278,7 +278,7 @@ import arrow from '../assets/images/arrow.svg?url';
         el.classList.remove('front');
       });
     }
-
+    
     function render() {
       // se siamo in modalità responsive (stack sul CSS), non sovrascriviamo il layout
       if (isStackMode()) {
@@ -287,10 +287,14 @@ import arrow from '../assets/images/arrow.svg?url';
         return;
       }
       console.debug('[BU] render: stack-mode OFF — applying transforms, current=', current);
-
+      
+      const viewportWidth = window.innerWidth;
+      const deckWidth = Math.min(768, viewportWidth);
+      const maxOffset = deckWidth * 0.18; // Limita lo spostamento orizzontale al 15% della larghezza del deck
+      
       units.forEach((el, i) => {
         const rel = (i - current + n) % n;
-        const translateX = rel * GAP;
+        const translateX = Math.min(rel * GAP, maxOffset); // Limita lo spostamento massimo
         const opacity = Math.max(0, 1 - rel * OPACITY_STEP);
         el.style.zIndex = String(n - rel);
         el.style.transform = `translate(-50%, -50%) translateX(${translateX}px)`;
@@ -302,19 +306,19 @@ import arrow from '../assets/images/arrow.svg?url';
         }
       });
     }
-
+    
     function next() {
       current = (current + 1) % n;
       render();
     }
-
+    
     // Init
     render();
-
+    
     // Eventi
     btn.addEventListener('click', next);
     btn.addEventListener('touchstart', (e) => { e.preventDefault(); next(); }, { passive: false });
-
+    
     // aggiorna su resize/orientation (quando cambia breakpoint)
     window.addEventListener('resize', render);
     window.addEventListener('orientationchange', render);

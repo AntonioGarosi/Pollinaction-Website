@@ -12,7 +12,7 @@ import grant from '../assets/images/grant.png?url';
   <div class="container">
     <div class="row" id="info">
       <img class="logo" src={logo} alt="PollinAction Logo" />
-      <div>
+      <div class="details">
         <p>{t('footer.address')}</p>
         <p>{t('footer.vat')}</p>    
       </div>
@@ -44,19 +44,23 @@ import grant from '../assets/images/grant.png?url';
   }
   
   #info {
-    padding: 10px 30px;
+    padding: 30px 0px;
     border-bottom: 0.5px solid vars.$color-gray;
     
     p {
       margin: 6px 0;
-      line-height: normal;
+      line-height: normal;      
     }
   }
   
   .logo {
-    max-width: 33%;
+    max-width: 34%;
     max-height: 100px;
     margin: 0 20px;
+  }
+
+  .details {
+    max-width: 66%;
   }
   
   #grant {
