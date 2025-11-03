@@ -10,7 +10,7 @@ export const ui = {
     'intro.title': 'il progetto',
     'intro.description': 'Siamo una Start-Up innovativa specializzati in biodiversità e servizi di impollinazione, nata dalla collaborazione di Università e centri di ricerca di settore, Tramite monitoraggio sul campo, impollinazione di precisione, e divulgazione scientifica analizziamo i dati raccolti per dare supporto agli agricoltori e valutare lo stato di biodiversità di un habitat.',
     'bu.u1.title': 'monitoraggio della biodiversità',
-    'bu.u1.description': 'Tramite tecnologia e software all\'avanguardia, mappiamo in maniera non invasiva gli insetti di un ecosistema, ne scopriamo le loro abitudini, e ne analizziamo le correlazioni ambientali.',
+    'bu.u1.description': 'Tramite tecnologia e software all\'avanguardia, mappiamo in maniera non invasiva gli insetti di un ecosistema, analizzandone abitudini e correlazioni ambientali.',
     'bu.u2.title': 'servizi di impollinazione',
     'bu.u2.description': 'Forniamo agli agricoltori gli impollinatori più adatti per ogni coltura, creando un circolo virtuoso per migliorare sia il raccolto che la biodiversità di un ecosistema.',
     'bu.u3.title': 'format educativi',
