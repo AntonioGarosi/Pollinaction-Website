@@ -1,10 +1,11 @@
 ---
+import { Image } from 'astro:assets';
 import logo from '../assets/images/logo-negative.svg?url';
-import bg from '../assets/images/background.png?url';
+import bg from '../assets/images/background.png';
 ---
 
 <div class="container" id="welcome">
-  <img id="welcome_bg" src={bg} alt=""/>
+  <Image id="welcome_bg" src={bg} alt="" quality="mid" />
   <img id="welcome_logo" src={logo} alt="PollinAction Logo" />
 </div>
 

@@ -1,0 +1,165 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+import ig from '../assets/images/social/instagram.svg?url';
+var igUrl = 'https://www.instagram.com/pollinaction_';
+---
+
+<div class="container">
+  <div class="claim">
+    <p>{t('cta.tease')}</p>
+  </div>
+  <div class="button-container">
+    <div class=clipped-box></div>
+    <div class="button-group">
+      <a href={igUrl} target="_blank" rel="noopener noreferrer" class="button">{t('cta.follow')}</a>
+      <div class="logo">
+        <img src={ig} alt="" />
+      </div>
+    </div>
+  </div>
+</form>
+
+</div>
+
+<style lang="scss">
+  @use '../assets/style/main' as vars;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .claim {
+    p {
+      font-size: vars.$font_size-big;
+      font-weight: vars.$fw-extrabold;
+      color: vars.$color-purple;
+      margin: 0 0 30px 0;
+      text-align: center;
+      line-height: 1.25;
+    }
+  }
+  
+  .button-container {
+    width: fit-content;
+    position: relative;
+    cursor: pointer;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0%;
+      top: 50%;
+      transform: translate(16px, -50%);
+      width: 44px;
+      height:44px;
+      border-radius: 44px;
+      background-color: vars.$color-purple;
+      z-index: 0;
+      transition: background-color 0.3s ease;
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 62px;
+      height: 62px;
+      border-radius: 62px;
+      background-color: vars.$color-purple;
+      z-index: 0;
+      transition: background-color 0.3s ease;
+    }
+  }
+  .clipped-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: vars.$color-purple;
+    clip-path: polygon(15% 15%, 85% 0%, 85% 100%, 15% 85%);
+    z-index: 0;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button-group {
+    height: 62px;
+    position: relative;
+    width: fit-content;
+    font-size: vars.$font_size-medium;
+    font-weight: 700;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px 0 15px;
+    justify-content: space-between;
+    padding: 0 7px;
+    gap: 20px;
+    background-color: tra;
+    z-index: 1;
+    
+    a {
+      text-decoration: none;
+      position: relative;
+      font-size: vars.$font_size-medium;
+      font-weight: vars.$fw-bold;
+      border: none;
+      background: transparent;
+      color: white;
+      padding-left: 45px;
+      transition: color 0.3s ease, font-weight 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .logo {
+      position: relative;
+      background-color: vars.$color-azure;;
+      height: 42px;
+      width: 42px;
+      border-radius: 42px;
+      padding: 4px;
+      transition: background-color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        width: 80%;
+        height: 80%;
+        filter: invert(1);
+      }
+    }
+  }
+  
+  @media screen and (min-width: vars.$bp-medium) {
+    .button-container {
+      &:hover {
+        &::before {
+          background-color: vars.$color-yellow;
+        }
+        &::after {
+          background-color: vars.$color-yellow;
+        }
+        .clipped-box {
+          background-color: vars.$color-yellow;
+        }
+        .logo {
+          background-color: vars.$color-purple;
+        }
+        a {
+          color: white;
+          font-weight: vars.$fw-extrabold;
+        }
+      }
+    }
+  }
+</style>
