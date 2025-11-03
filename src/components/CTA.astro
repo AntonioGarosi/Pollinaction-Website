@@ -7,31 +7,31 @@ const t = useTranslations(lang);
 import envelope from '../assets/images/social/envelope.svg?url';
 ---
 
-<div class="container">  
+<div class="container">
   <form action="https://formspree.io/f/xdkpvaeq" class="fs-form" target="_top" method="POST">
-    
+
     <div class="invitation">
       <p>{t('cta.claim')}</p>
     </div>
-    
+
     <div class="inputs">
-      <div class="info">  
+      <div class="info">
         <div class="fs-field">
           <label class="fs-label" for="name">{t('cta.who')}</label>
           <input class="fs-input" id="name" name="name" required />
         </div>
         <div class="fs-field">
           <label class="fs-label" for="email">{t('cta.email')}</label>
-          <input class="fs-input" id="email" name="email" required />      
+          <input class="fs-input" id="email" name="email" required />
         </div>
       </div>
-      
+
       <div class="fs-field">
         <label class="fs-label" for="message">{t('cta.message')}</label>
         <textarea class="fs-textarea" id="message" name="message" required ></textarea>
       </div>
     </div>
-    
+
     <div class="button-container">
       <div class=clipped-box></div>
       <div class="fs-button-group">
@@ -42,16 +42,16 @@ import envelope from '../assets/images/social/envelope.svg?url';
       </div>
     </div>
   </form>
-  
+
 </div>
 
 <style lang="scss">
   @use '../assets/style/main' as vars;
-  
+
   .container {
     padding: 0px;
   }
-  
+
   .invitation {
     p {
       font-size: vars.$font_size-big;
@@ -60,14 +60,14 @@ import envelope from '../assets/images/social/envelope.svg?url';
       line-height: 1.25;
     }
   }
-  
+
   .inputs {
     display: flex;
     flex-direction: column;
     width: 100%;
     margin-bottom: 24px;
-  }  
-  
+  }
+
   .fs-form {
     background-color: vars.$color-purple;
     color: white;
@@ -76,11 +76,11 @@ import envelope from '../assets/images/social/envelope.svg?url';
     align-items: center;
     padding: 50px;
   }
-  
+
   .fs-field {
     display: flex;
     flex-direction: column;
-    max-width: 100%;    
+    max-width: 100%;
     margin: 20px 0;
     gap: 18px;
     text-align: center;
@@ -102,7 +102,7 @@ import envelope from '../assets/images/social/envelope.svg?url';
       padding: 12px;
     }
   }
- 
+
   .info {
     margin: 20px 0px 14px 0px;
     display: flex;
@@ -113,12 +113,12 @@ import envelope from '../assets/images/social/envelope.svg?url';
       margin: 0px;
     }
   }
-  
+
   .button-container {
     width: fit-content;
     position: relative;
     cursor: pointer;
-  
+
     &::before {
       content: '';
       position: absolute;
@@ -128,8 +128,9 @@ import envelope from '../assets/images/social/envelope.svg?url';
       width: 62px;
       height: 62px;
       border-radius: 62px;
-      background-color: white;      
+      background-color: white;
       z-index: 0;
+      transition: background-color 0.3s ease;
     }
 
     &::after {
@@ -141,8 +142,9 @@ import envelope from '../assets/images/social/envelope.svg?url';
       width: 44px;
       height:44px;
       border-radius: 44px;
-      background-color: white;      
-      z-index: 0;      
+      background-color: white;
+      z-index: 0;
+      transition: background-color 0.3s ease;
     }
   }
   .clipped-box {
@@ -154,6 +156,7 @@ import envelope from '../assets/images/social/envelope.svg?url';
     background-color: white;
     clip-path: polygon(15% 0%, 85% 15%, 85% 85%, 15% 100%);
     z-index: 0;
+    transition: background-color 0.3s ease;
   }
 
   .fs-button-group {
@@ -176,14 +179,15 @@ import envelope from '../assets/images/social/envelope.svg?url';
     button {
       position: relative;
       font-size: vars.$font_size-medium;
-      font-weight: 700;
+      font-weight: vars.$fw-bold;
       border: none;
       background: transparent;
       color: vars.$color-purple;
       padding-right: 45px;
+      transition: color 0.3s ease, font-weight 0.3s ease;
       cursor: pointer;
     }
-    
+
     .logo {
       position: relative;
       background-color: vars.$color-purple;
@@ -191,10 +195,67 @@ import envelope from '../assets/images/social/envelope.svg?url';
       width: 42px;
       border-radius: 42px;
       padding: 4px;
-      img {            
+      transition: background-color 0.3s ease;
+      img {
         filter: invert(1);
       }
     }
-    
+  }
+
+  @media screen and (min-width: vars.$bp-medium) {
+    .fs-form {
+      flex-direction: column;
+      padding: 65px 120px;
+    }
+
+    .inputs {
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 60px;
+      & > div {
+        width: 100%;
+        max-width: 50%;
+      }
+    }
+
+    .fs-field {
+      text-align: left;
+
+      input {
+        width: 50%;
+        height: 28px;
+        text-align: left;
+        padding-left: 18px;
+        font-size: vars.$font_size-medium;
+        font-weight: 400;
+      }
+
+      textarea {
+        padding-left: 18px;
+        font-size: vars.$font_size-medium;
+        font-weight: 400;
+      }
+    }
+
+    .button-container {
+      &:hover {
+        &::before {
+          background-color: vars.$color-yellow;
+        }
+        &::after {
+          background-color: vars.$color-yellow;
+        }
+        .clipped-box {
+          background-color: vars.$color-yellow;
+        }
+        .logo {
+          background-color: vars.$color-azure;
+        }
+        button {
+          color: white;
+          font-weight: vars.$fw-extrabold;
+        }
+      }
+    }
   }
 </style>
