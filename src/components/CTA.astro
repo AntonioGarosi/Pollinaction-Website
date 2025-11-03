@@ -1,0 +1,200 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+import envelope from '../assets/images/social/envelope.svg?url';
+---
+
+<div class="container">  
+  <form action="https://formspree.io/f/xdkpvaeq" class="fs-form" target="_top" method="POST">
+    
+    <div class="invitation">
+      <p>{t('cta.claim')}</p>
+    </div>
+    
+    <div class="inputs">
+      <div class="info">  
+        <div class="fs-field">
+          <label class="fs-label" for="name">{t('cta.who')}</label>
+          <input class="fs-input" id="name" name="name" required />
+        </div>
+        <div class="fs-field">
+          <label class="fs-label" for="email">{t('cta.email')}</label>
+          <input class="fs-input" id="email" name="email" required />      
+        </div>
+      </div>
+      
+      <div class="fs-field">
+        <label class="fs-label" for="message">{t('cta.message')}</label>
+        <textarea class="fs-textarea" id="message" name="message" required ></textarea>
+      </div>
+    </div>
+    
+    <div class="button-container">
+      <div class=clipped-box></div>
+      <div class="fs-button-group">
+        <div class="logo">
+          <img src={envelope} alt="" />
+        </div>
+        <button class="fs-button" type="submit">{t('cta.button')}</button>
+      </div>
+    </div>
+  </form>
+  
+</div>
+
+<style lang="scss">
+  @use '../assets/style/main' as vars;
+  
+  .container {
+    padding: 0px;
+  }
+  
+  .invitation {
+    p {
+      font-size: vars.$font_size-big;
+      margin: 0 0 10px 0;
+      text-align: center;
+      line-height: 1.25;
+    }
+  }
+  
+  .inputs {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 24px;
+  }  
+  
+  .fs-form {
+    background-color: vars.$color-purple;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+  }
+  
+  .fs-field {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;    
+    margin: 20px 0;
+    gap: 18px;
+    text-align: center;
+    font-weight: 700;
+    input, textarea {
+      font-size: vars.$font_size-small;
+      font-weight: 700;
+      border-radius: 20px;
+      color: vars.$color-purple;
+      border-radius: 20px;
+    }
+    input {
+      padding: 6px;
+      text-align: center;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+      padding: 12px;
+    }
+  }
+ 
+  .info {
+    margin: 20px 0px 14px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .fs-field {
+      margin: 0px;
+    }
+  }
+  
+  .button-container {
+    width: fit-content;
+    position: relative;
+    cursor: pointer;
+  
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 62px;
+      height: 62px;
+      border-radius: 62px;
+      background-color: white;      
+      z-index: 0;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0%;
+      top: 50%;
+      transform: translate(-16px, -50%);
+      width: 44px;
+      height:44px;
+      border-radius: 44px;
+      background-color: white;      
+      z-index: 0;      
+    }
+  }
+  .clipped-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    clip-path: polygon(15% 0%, 85% 15%, 85% 85%, 15% 100%);
+    z-index: 0;
+  }
+
+  .fs-button-group {
+    height: 62px;
+    position: relative;
+    width: fit-content;
+    font-size: vars.$font_size-medium;
+    font-weight: 700;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px 0 15px;
+    justify-content: space-between;
+    padding: 0 7px;
+    gap: 20px;
+    background-color: tra;
+    z-index: 1;
+
+    button {
+      position: relative;
+      font-size: vars.$font_size-medium;
+      font-weight: 700;
+      border: none;
+      background: transparent;
+      color: vars.$color-purple;
+      padding-right: 45px;
+      cursor: pointer;
+    }
+    
+    .logo {
+      position: relative;
+      background-color: vars.$color-purple;
+      height: 42px;
+      width: 42px;
+      border-radius: 42px;
+      padding: 4px;
+      img {            
+        filter: invert(1);
+      }
+    }
+    
+  }
+</style>
