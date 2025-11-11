@@ -1,0 +1,16 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+import bug from '../assets/images/bugs/bombo.svg?url'
+---
+
+<div class="container">
+  <img src={bug}>
+  <p class="intro">{t('cookie.text1')}</p>
+  <p>{t('cookie.text2')}</p>
+  <button class="accept">{t('cookie.accept')}</button>
+  <button class="deny">{t('cookie.deny')}</button>
+</div>
