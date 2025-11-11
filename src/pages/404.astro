@@ -1,18 +1,156 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Social from '../components/Social.astro';
-import Welcome from '../components/Welcome.astro';
 import Footer from '../components/Footer.astro';
+
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+import notFound from '../assets/images/404.svg?url';
 ---
 <Layout>
-  <Welcome />
   <Social />
-  <div style="text-align: center; padding: 4rem 1rem;">
-    <h1>404 - Page Not Found</h1>
-    <p>Oops! The page you're looking for doesn't seem to exist.</p>
-    <a href="/">Go back home</a>
+  <div class="container" style="text-align: center; padding: 4rem 1rem;">
+    <img src={notFound} alt={t('404.alt')}>
+    <p class="emphasis">{t('404.text1')}</p>
+    <p>{t('404.text2')}</p>
+    
+    <div class="button-container">
+      <div class=clipped-box></div>
+      <div class="button-group">
+        <a href='/' class="button">{t('404.button')}</a>      
+      </div>
+    </div>
   </div>
+  
+  
   <Footer />
 </Layout>
+
+<style lang="scss">
+  @use '../assets/style/main' as vars;
+  
+  p {
+    color: white;
+    margin: 0;
+    font-weight: vars.$fw-extrabold;
+  }
+  
+  img {
+    max-width: 250px;
+    margin: 30px 0;
+  }
+  
+  .container {
+    background-color: vars.$color_purple;
+  }
+  
+  .emphasis {
+    font-size: 1.7rem;
+    font-weight: vars.$fw-extrabold * 1.5;
+    line-height: 100%;
+  }
+  
+  .button-container {
+    margin: 50px auto;
+    width: fit-content;
+    position: relative;
+    cursor: pointer;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0%;
+      top: 50%;
+      transform: translate(16px, -50%);
+      width: 44px;
+      height:44px;
+      border-radius: 44px;
+      background-color: vars.$color-azure;
+      z-index: 0;
+      transition: background-color 0.3s ease;
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 62px;
+      height: 62px;
+      border-radius: 62px;
+      background-color: vars.$color-azure;
+      z-index: 0;
+      transition: background-color 0.3s ease;
+    }
+  }
+  .clipped-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: vars.$color-azure;
+    clip-path: polygon(15% 15%, 85% 0%, 85% 100%, 15% 85%);
+    z-index: 0;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button-group {
+    height: 62px;
+    position: relative;
+    width: 210px;
+    font-size: vars.$font_size-medium;
+    font-weight: 700;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px 0 15px;
+    justify-content: space-between;
+    padding: 0 7px;
+    gap: 20px;
+    background-color: transparent;
+    z-index: 1;
+    
+    a {
+      text-decoration: none;
+      position: relative;
+      font-size: vars.$font_size-medium;
+      font-weight: vars.$fw-bold;
+      border: none;
+      background: transparent;
+      color: white;
+      text-align: center;      
+      margin: 0 auto;
+      padding-left: 12px;
+      transition: color 0.3s ease, font-weight 0.3s ease;
+      cursor: pointer;
+    }
+  }
+  
+  @media screen and (min-width: vars.$bp-medium) {
+    .button-container {
+      &:hover {
+        &::before {
+          background-color: vars.$color-yellow;
+        }
+        &::after {
+          background-color: vars.$color-yellow;
+        }
+        .clipped-box {
+          background-color: vars.$color-yellow;
+        }
+        a {
+          color: white;
+          font-weight: vars.$fw-extrabold;
+        }
+      }
+    }
+  }
+</style>
 
 
