@@ -4,11 +4,13 @@ import Social from '../components/Social.astro';
 import Welcome from '../components/Welcome.astro';
 import Text from '../components/Text.astro'
 import Layout from '../layouts/Layout.astro';
+
+import * as policy from '../contents/policy.md'
 ---
 
 <Layout>
 	<Welcome />
 	<Social />
-  <Text />
+	<Text title={policy.frontmatter.Title} Content={policy.Content} />
 	<Footer />
 </Layout>

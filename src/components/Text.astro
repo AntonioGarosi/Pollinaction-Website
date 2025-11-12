@@ -1,25 +1,17 @@
-<div class="container">  
+---
+const { title, Content } = Astro.props;
+---
+
+<div class="container">
+  <h1>{title}</h1>
+  <Content />
 </div>
 
 <style lang="scss">
   @use '../assets/style/main' as vars;
-.container {
-}  
 
-h1 {
-
-}
-
-h2 {
-
-}
-
-p {
-
-}
-
-a {
-
+  .container {
+    color: vars.$color_purple;
 }
 
 </style>
