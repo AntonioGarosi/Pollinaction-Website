@@ -7,10 +7,349 @@ const t = useTranslations(lang);
 import bug from '../assets/images/bugs/bombo.svg?url'
 ---
 
-<div class="container">
-  <img src={bug}>
-  <p class="intro">{t('cookie.text1')}</p>
-  <p>{t('cookie.text2')}</p>
-  <button class="accept">{t('cookie.accept')}</button>
-  <button class="deny">{t('cookie.deny')}</button>
+<div class="container" id="cookie-banner">
+	<div class="bug">
+		<img src={bug}>
+	</div>
+	<p class="intro">{t('cookie.text1')}</p>
+	<p>{t('cookie.text2')}</p>
+	
+	<div class="button-container accept">
+		<div class=clipped-box></div>
+		<div class="button-group">
+			<p>{t('cookie.accept')}</p>
+		</div>
+	</div>
+	
+	<div class="button-container deny">
+		<div class=clipped-box></div>
+		<div class="button-group">
+			<p>{t('cookie.deny')}</p>
+		</div>
+	</div>
+	
 </div>
+
+<style lang="scss">
+	@use '../assets/style/main' as vars;
+
+	#cookie-banner {
+		display: none;
+	}
+	
+	.container {
+		margin: 0px;
+		padding: 0 0 40px 0;
+		position: fixed;
+		bottom: 15px;
+		left: 50%;
+		transform: translateX(-50%);
+		background-color: vars.$color-yellow;    
+		width: calc(100vw - 30px);
+		max-width: 700px;
+		text-align: center;
+		z-index: 1000;    
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		
+		p {
+			font-size: vars.$font-size-small;
+			color: vars.$color-purple;
+			margin-bottom: 15px;
+			padding: 0 30px;
+			line-height: normal;
+		}
+		
+		.intro {      
+			font-size: vars.$font-size-medium;
+			margin-bottom: 10px;
+			margin-top: 10px;
+			font-weight: vars.$fw-extrabold;
+		}
+	}
+	
+	.bug {
+		position: relative;
+		margin-top: 20px;
+		margin-bottom: 10px;
+		background-color: vars.$color-gray;
+		padding: 30px;
+		width: 70px;
+		height: 70px;
+		border-radius: 50%;
+		img {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-55%, -50%);
+			width: 70px;
+			height: auto;
+		}
+	}
+	
+	.button-container {
+		margin-top: 15px;
+		width: fit-content;
+		position: relative;
+		cursor: pointer;
+	}
+	
+	.button-container.accept {		
+		&::before {
+			content: '';
+			position: absolute;
+			left: 0%;
+			top: 50%;
+			transform: translate(16px, -50%);
+			width: 44px;
+			height:44px;
+			border-radius: 44px;
+			background-color: vars.$color-purple;
+			z-index: 0;
+			transition: background-color 0.3s ease;
+		}
+		
+		&::after {
+			content: '';
+			position: absolute;
+			right: 0%;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 62px;
+			height: 62px;
+			border-radius: 62px;
+			background-color: vars.$color-purple;
+			z-index: 0;
+			transition: background-color 0.3s ease;
+		}
+		
+		.clipped-box {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: vars.$color-purple;
+			clip-path: polygon(15% 15%, 85% 0%, 85% 100%, 15% 85%);
+			z-index: 0;
+			transition: background-color 0.3s ease;
+		}
+		
+		.button-group {
+			height: 62px;
+			position: relative;
+			width: 200px;
+			font-size: vars.$font_size-medium;
+			font-weight: 700;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;		
+			gap: 20px;
+			background-color: transparent;
+			z-index: 1;
+			
+			p {
+				text-decoration: none;
+				position: relative;
+				text-align: center;
+				font-size: vars.$font_size-medium;
+				font-weight: vars.$fw-bold;
+				border: none;
+				background: transparent;
+				color: white;			
+				transition: color 0.3s ease, font-weight 0.3s ease;
+				cursor: pointer;
+				padding-left: 45px;
+			}
+			
+			.logo {
+				position: relative;
+				background-color: vars.$color-azure;;
+				height: 42px;
+				width: 42px;
+				border-radius: 42px;
+				padding: 4px;
+				transition: background-color 0.3s ease;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				img {
+					width: 80%;
+					height: 80%;
+					filter: invert(1);
+				}
+			}
+		}
+	}
+	
+	.button-container.deny {
+		margin-left: 22px;		
+		
+		&::before {
+			content: '';
+			position: absolute;
+			left: 0%;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 62px;
+			height: 62px;
+			border-radius: 62px;
+			background-color: vars.$color-purple;
+			z-index: 0;
+			transition: background-color 0.3s ease;
+		}
+		
+		&::after {
+			content: '';
+			position: absolute;
+			right: 0%;
+			top: 50%;
+			transform: translate(-16px, -50%);
+			width: 44px;
+			height:44px;
+			border-radius: 44px;
+			background-color: vars.$color-purple;
+			z-index: 0;
+			transition: background-color 0.3s ease;
+		}
+		
+		.clipped-box {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: vars.$color-purple;
+			clip-path: polygon(15% 0%, 85% 15%, 85% 85%, 15% 100%);
+			z-index: 0;
+			transition: background-color 0.3s ease;
+		}
+		
+		.button-group {
+			height: 62px;
+			position: relative;
+			width: 200px;
+			font-size: vars.$font_size-medium;
+			font-weight: 700;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;		
+			gap: 20px;
+			background-color: transparent;
+			z-index: 1;
+			
+			p {
+				text-decoration: none;
+				position: relative;
+				text-align: center;
+				font-size: vars.$font_size-medium;
+				font-weight: vars.$fw-bold;
+				border: none;
+				background: transparent;
+				color: white;			
+				transition: color 0.3s ease, font-weight 0.3s ease;
+				cursor: pointer;
+				padding-right: 45px;
+			}
+			
+			.logo {
+				position: relative;
+				background-color: vars.$color-azure;;
+				height: 42px;
+				width: 42px;
+				border-radius: 42px;
+				padding: 4px;
+				transition: background-color 0.3s ease;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				img {
+					width: 80%;
+					height: 80%;
+					filter: invert(1);
+				}
+			}
+		}
+	}
+	
+	@media screen and (min-width: vars.$bp-medium) {
+		.button-container {
+			&:hover {
+				&::before {
+					background-color: vars.$color-azure;
+				}
+				&::after {
+					background-color: vars.$color-azure;
+				}
+				.clipped-box {
+					background-color: vars.$color-azure;
+				}
+				p {
+					color: white;
+					font-weight: vars.$fw-extrabold;
+				}
+			}
+		}
+	}
+</style>
+
+<script lang="js">
+	// Cookie functions
+	
+	function setCookie(cname, cvalue, exdays) {
+		let expires;
+		if (typeof exdays !== 'undefined') {
+			const d = new Date();
+			d.setTime(d.getTime() + (exdays*24*60*60*1000));
+			expires = ";expires="+ d.toUTCString();    
+		} else {
+			expires = "";
+		}
+		document.cookie = cname + "=" + cvalue + expires + ";path=/";
+	}
+	
+	function getCookie(cname) {
+		let name = cname + "=";
+		let decodedCookie = decodeURIComponent(document.cookie);
+		let ca = decodedCookie.split(';');
+		for(let i = 0; i <ca.length; i++) {
+			let c = ca[i];
+			while (c.charAt(0) == ' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+				return c.substring(name.length, c.length);
+			}
+		}
+		return "";
+	}
+
+	if (typeof window !== 'undefined') {
+		const acceptButton = document.querySelector('.button-container.accept');
+		const denyButton = document.querySelector('.button-container.deny');
+		const cookieBanner = document.getElementById('cookie-banner');
+		
+		acceptButton.addEventListener('click', () => {
+			setCookie('cookies_accepted', 'true', 365);
+			cookieBanner.style.display = 'none';
+		});
+		
+		denyButton.addEventListener('click', () => {
+			setCookie('cookies_accepted', 'false', 365);
+			cookieBanner.style.display = 'none';
+		});
+		
+		window.addEventListener('load', () => {
+			const consent = getCookie('cookies_accepted');
+			console.log('Cookie consent status:', consent);
+			if (consent === 'true') {
+				cookieBanner.style.display = 'none';
+			} else {
+				cookieBanner.style.display = 'flex';				
+			}
+		});
+	}
+</script>

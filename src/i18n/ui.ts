@@ -23,7 +23,7 @@ export const ui = {
     'cta.message': 'Raccontaci qualcosa',
     'cta.button': 'contattaci!',
     'cookie.text1': 'Lo sappiamo, questo banner è fastidioso come un insetto nell\'orecchio...',
-    'cookie.text2': 'Però li puoi controllare! Usiamo solo cookie tecnicni per bla, bla, bla...',
+    'cookie.text2': 'Però li puoi controllare! Utilizziamo cookies solo per facilitare la navigazione ed analizzare il traffico. Non conserviamo alcun dato sensibile.',
     'cookie.accept': 'Accetta',
     'cookie.deny': 'Rifiuta',
     '404.alt': 'Pagina 404',
