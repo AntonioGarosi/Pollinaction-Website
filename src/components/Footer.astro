@@ -19,7 +19,7 @@ import grant from '../assets/images/grant.png?url';
     </div>
     <div class="row" id="grant">
       <p>{t('footer.grant')}</p>
-      <img src={grant} alt="{t('foonter.grant_label')}"/>
+      <img src={grant} alt="{t('footer.grant_label')}"/>
     </div>
   </div>
 </footer>
@@ -73,7 +73,8 @@ import grant from '../assets/images/grant.png?url';
     }
     img {
       width: 100%;
-      max-height: 80px;
+      max-height: 100px;
+      object-fit: contain;
     }
     
   }
@@ -83,7 +84,7 @@ import grant from '../assets/images/grant.png?url';
     font-size: vars.$font_size-small;
   }
   
-  @media screen and (min-width:vars.$bp_medium) {
+  @media screen and (min-width:vars.$bp-medium) {
     .container {
       flex-direction: row;
       align-items: center;
@@ -99,7 +100,15 @@ import grant from '../assets/images/grant.png?url';
     }
     
     #grant {
-      flex-direction: column;      
+       /* inherit column layout from base */   
+    }
+  }
+
+  @media screen and (min-width:vars.$bp-large) {
+    .container {
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
     }
   }
   
