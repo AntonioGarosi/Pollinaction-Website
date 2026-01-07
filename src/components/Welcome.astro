@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { getOptimizedImage } from '../utils/images';
 import logo from '../assets/images/logo-negative.svg?url';
 
 // Slide 1 Images
@@ -17,11 +17,20 @@ import sm3 from '../assets/images/welcome/header_small_03.jpg';
 import md3 from '../assets/images/welcome/header_medium_03.jpg';
 import lg3 from '../assets/images/welcome/header_large_03.jpg';
 
-const slides = [
+const rawSlides = [
   { sm: sm1, md: md1, lg: lg1, id: 'slide-1' },
   { sm: sm2, md: md2, lg: lg2, id: 'slide-2' },
   { sm: sm3, md: md3, lg: lg3, id: 'slide-3' },
 ];
+
+const slides = await Promise.all(
+  rawSlides.map(async (slide) => {
+    const sm = await getOptimizedImage(slide.sm);
+    const md = await getOptimizedImage(slide.md);
+    const lg = await getOptimizedImage(slide.lg);
+    return { ...slide, sm, md, lg };
+  })
+);
 ---
 
 <div class="container" id="welcome">
