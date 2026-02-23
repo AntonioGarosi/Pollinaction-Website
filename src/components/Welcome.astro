@@ -62,22 +62,48 @@ const slides = await Promise.all(
 </div>
 
 <script>
-  const radios = document.querySelectorAll('input[name="welcome-slider"]');
+  const radios = document.querySelectorAll('input[name="welcome-slider"]') as NodeListOf<HTMLInputElement>;
   const slides = document.querySelectorAll('.slide');
+  let currentIndex = 0;
+  let intervalId: number;
 
-  radios.forEach((radio) => {
-    radio.addEventListener('change', (e) => {
-      const targetIndex = (e.target as HTMLInputElement).value;
-      
-      slides.forEach((slide, index) => {
-        if (index === parseInt(targetIndex)) {
-          slide.classList.add('active');
-        } else {
-          slide.classList.remove('active');
-        }
-      });
+  function showSlide(index: number) {
+    currentIndex = index;
+    slides.forEach((slide, i) => {
+      if (i === index) {
+        slide.classList.add('active');
+      } else {
+        slide.classList.remove('active');
+      }
+    });
+    if (radios[index]) {
+      radios[index].checked = true;
+    }
+  }
+
+  function nextSlide() {
+    const nextIndex = (currentIndex + 1) % slides.length;
+    showSlide(nextIndex);
+  }
+
+  function startInterval() {
+    intervalId = window.setInterval(nextSlide, 5000);
+  }
+
+  function resetInterval() {
+    clearInterval(intervalId);
+    startInterval();
+  }
+
+  radios.forEach((radio, index) => {
+    radio.addEventListener('change', () => {
+      showSlide(index);
+      resetInterval();
     });
   });
+
+  // Initialize the interval
+  startInterval();
 </script>
 
 <style lang="scss">
